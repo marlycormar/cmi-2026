@@ -48,7 +48,7 @@ If you also want the PDF rebuilt:
 
 ## Useful Commands
 
-```sh
+```bash
 # Build the blueprint PDF from the LaTeX sources.
 ./.venv/bin/leanblueprint pdf
 
