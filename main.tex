@@ -1,0 +1,795 @@
+\ifdefined\ISBLUEPRINT\else
+\documentclass[11pt]{amsart}
+
+% Package Being Used:
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{psfrag}
+\usepackage{color}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=magenta, urlcolor=wine}
+\usepackage{url}
+\usepackage{algpseudocode}
+\usepackage{fancyhdr}
+\usepackage{mathtools}
+\usepackage{tikz-cd}
+\usepackage{xy}
+\input xy
+\xyoption{all}
+\usepackage{stmaryrd}
+\usepackage{calrsfs}
+
+% Paper Format and Geometry:
+
+\voffset=-1.4mm
+\oddsidemargin=14pt
+\evensidemargin=14pt
+\topmargin=26pt
+\headheight=9pt     
+\textheight=576pt
+\textwidth=441pt %441
+\parskip=0pt plus 4pt
+
+% Head Labels:
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyhead[CE]{\fontsize{9}{11}\selectfont F. GOTTI}
+\fancyhead[CO]{\fontsize{9}{11}\selectfont }
+\fancyhead[LE,RO]{\thepage}
+
+\setlength{\headheight}{9pt}
+
+% Theorems-like Format and Numbering:
+
+\newtheorem*{maintheorem*}{Main Theorem}
+\newtheorem{theorem}{Theorem}%[section]
+\newtheorem*{theorem*}{Main Theorem}
+\newtheorem{prob}[theorem]{Problem}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\numberwithin{equation}{section}
+\newtheorem{exe}{Exercise}
+
+
+% Personalized Commands:
+\newcommand{\cc}{\mathbb{C}}
+\newcommand{\ff}{\mathbb{F}}
+\newcommand{\nn}{\mathbb{N}}
+\newcommand{\pp}{\mathbb{P}}
+\newcommand{\qq}{\mathbb{Q}}
+\newcommand{\rr}{\mathbb{R}}
+\newcommand{\zz}{\mathbb{Z}}
+\newcommand{\mca}{\mathcal{A}}
+\newcommand{\mce}{\mathcal{E}}
+\newcommand{\mcr}{\mathcal{R}}
+\newcommand{\aaa}{\mathbf{A}}
+
+\newcommand{\lcm}{\text{lcm}}
+\providecommand\ldb{\llbracket}
+\providecommand\rdb{\rrbracket}
+\newcommand\pval{\mathsf{v}_p}
+\newcommand{\gp}{\text{gp}}
+\newcommand{\qf}{\text{qf}}
+\newcommand{\supp}{\textsf{supp}}
+\newcommand{\ii}{\mathcal{Irr}}
+\newcommand{\uu}{\mathcal{U}}
+
+\newcommand{\rad}{\text{Rad}}
+
+%\keywords{BFD, bounded factorization domain, FFD, finite factorization domain, factorization, D+M construction, HFD, ACCP, atomic domain, monoid domain}
+%
+%\subjclass[2010]{Primary: 13A05, 13F15; Secondary: 13A15, 13G05}
+
+\begin{document}
+	
+\mbox{}
+\title{CMI 2026: Lecture Notes \\ \phantom{blank} \\ Intro to Commutative Monoids and Semirings}
+
+\author{Mentor: Dr. Felix Gotti}
+
+
+\address{Department of Mathematics\\MIT\\Cambridge, MA 02139}
+\email{fgotti@mit.edu}
+
+
+\bigskip
+\maketitle
+\fi
+
+
+
+%%%%%%%%%%%%%%%%%%
+\section{Commutative Monoids }
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+\section*{Lecture 1 (by Harold)}
+
+\subsection{General Notation.} In what follows (and throughout our weekly meetings), we let $\pp$, $\nn$, and $\nn_0$ denote the sets of primes, positive integers, and nonnegative integers, respectively. As it is customary, we let $\zz$, $\qq$, and $\rr$ denote the set of integers, rational numbers, and real numbers, respectively. In addition, for any $b,c \in \zz$, we let $\ldb b,c \rdb$ denote the discrete interval from $b$ to $c$:
+\[
+	\ldb b,c \rdb := \{n \in \zz : b \le n \le c\}.
+\]
+If $S$ is a subset of $\rr$ and $r \in \rr$, then we set $S_{\ge r} := \{s \in S : s \ge r\}$. We also use the notation $S_{\le r}$, $S_{> r}$, and $S_{< r}$ in a similar manner. 
+
+%\medskip
+%\subsection{Equivalence and Order Relations}
+%
+%TODO...
+
+
+\medskip
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Commutative Monoids and Abelian Groups}
+
+A \emph{binary operation} on a nonempty set $M$ is a function $* \colon M \times M \to M$ (for any $a,b \in M$, we often write $a * b$ instead of $*(a,b)$). A pair $(M,*)$, where $M$ is a nonempty set and $*$ is a binary operation on $M$ is called a \emph{monoid} if the following two conditions hold:
+\begin{enumerate}
+	\item $a*(b*c) = (a*b)*c$ for all $a,b,c \in M$, and
+	\smallskip
+	
+	\item there exists $e \in M$ such that $e*a = a*e = a$ for all $a \in M$.
+\end{enumerate}
+Let $(M,*)$ be a monoid, which we simply denote by $M$. Condition (1) is called \emph{associativity}. Condition~(2) can only be satisfied by one element $e$: if for some $e' \in M$ the equalities $e'*a = a*e' = a$ hold for all $a \in M$, then $e' = e$ (why?). The element $e$ is called the \emph{identity element} of the monoid $M$. An element $u \in M$ is called \emph{invertible} or a \emph{unit} if $u*v = v*u = e$ for some $v \in M$, in which case such an element $v$ is unique (why?) and $v$ is called the \emph{inverse} of $u$. Observe that $e*e = e$ and, therefore, $e$ is invertible. If $e$ is the only invertible element of $M$, then we say that $M$ is \emph{reduced}. %From this point on, we will denote a monoid $(M,*)$ simply by $M$ when the operation is either a generic operation $*$ or it is clear from the context. 
+The set consisting of all invertible elements of $M$ is denoted by $\mathcal{U}(M)$ and called the \emph{group of units} of $M$. We say that $M$ is a \emph{group} if $M = \uu(M)$. It is not hard to verify that $\mathcal{U}(M)$ is always a group. If $a*b = b*a$ for all $a,b \in M$, then we say that $M$ is \emph{commutative}. A group that is a commutative (as a monoid) is called an \emph{abelian group}. From now on, we will tacitly assume that every monoid (resp., group) we refer to or deal with during the PRIMES reading period is commutative (resp., abelian). 
+\smallskip
+
+Although the definition of a monoid may seem a little bit abstract \emph{a priori}, we have actually dealt with many concrete and simple examples of monoids since we learned our first arithmetic operations.
+
+\begin{example} \hfill
+	The set $(\nn_0,+)$ of nonnegative integers is a commutative monoid under the standard operation of addition. However, it is not a group. Similarly, the the pairs $(\qq_{\ge 0},+)$ and $(\rr_{\ge 0},+)$ consisting of all nonnegative rational numbers and nonnegative real numbers, respectively, are monoids under the standard addition (but they are not groups). From now on, we simply write $\nn_0$, $\qq_{\ge 0 }$, and $\rr_{\ge 0}$ to refer to the additive monoids $(\nn_0,+)$, $(\qq_{\ge 0},+)$, and $(\rr_{\ge 0},+)$, respectively. 
+\end{example}
+
+\begin{example}
+    The set $(\nn, \cdot)$ consisting of all positive integers under the standard multiplication is also a monoid, which we will denote simply by $\nn$. Observe that $\nn$ is not a group. \hfill $\square$
+\end{example}
+		
+\begin{example}
+    The set of integers $\zz$ under the standard addition is an abelian group and so a monoid. Similarly, the set $\qq$ of rationals and the set $\rr$ of reals are groups under the standard addition. \hfill $\blacksquare$
+\end{example}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Monoid Homomorphisms} 
+
+The most relevant maps between monoids are those that respect the corresponding binary operations, and so we need some terminology to refer to those maps.
+
+\begin{definition}
+	Let $M$ and $N$ be two monoids, and let $e_M$ and $e_N$ denote their respective identity elements. A function $f \colon M \to N$ is called a \emph{monoid homomorphism} if the following holds: 	for all $a,b \in M$,
+	\[
+		f(e_M) = e_N \quad \text{ and } f(a*b) = f(a)*f(b).
+	\]
+\end{definition}
+
+ If $f \colon M \to N$ is a monoid homomorphism, then it is clear that $f(M)$ is a submonoid of $N$. We say that a monoid homomorphism is a \emph{monoid isomorphism} or simply an \emph{isomorphism} if it is a bijective function. Finally, we say that two monoids $M_1$ and $M_2$ are \emph{isomorphic} if there exists an isomorphism between them, in which case we write $M_1 \cong M_2$. The relation of being isomorphic is an equivalence relation in the class consisting of all monoids. A monoid homomorphism (resp., isomorphism) $f \colon M \to N$ is called a \emph{group homomorphism} (resp., \emph{group isomorphism}) if both~$M$ and~$N$ are groups.
+
+%Finally, we say that two monoids are isomorphic if there exists an isomorphism between them. The relation of being isomorphic is an equivalence relation in the class consisting of all monoids.
+
+\begin{example}
+	Let $M$ be the monoid $\rr_{\ge 0}$, and let $N$ be the monoid $(\rr_{>0}, \cdot)$, where $\cdot$ denotes the standard multiplication of real numbers. Now consider the exponential function $f \colon M \to N$, that is, $f(r) = e^r$ for all $r \in M$. Since $f(0) = 1$ and $f(r+s) = f(r)f(s)$ for all $r,s \in \rr_{\ge 0}$, the function $f$ is indeed a monoid homomorphism. On the other hand, $f$ is not an isomorphism because $f$ is not surjective: in fact, the image of $f$ is the proper submonoid $S := \rr_{\ge 1}$ of $N$. However, if we slightly modify $f$ by restricting its co-domain to its image, then we obtain the monoid isomorphism $f \colon M \to S$. Hence the additive monoid $\rr_{\ge 0}$ and the multiplicative monoid $(\rr_{\ge 1}, \cdot)$ are isomorphic. \hfill $\blacksquare$
+\end{example}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Lecture 2 (by Victor)}
+
+
+\smallskip
+%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Submonoids}
+
+For the rest of this section, let $M$ be a monoid with binary operation $*$ and identity element~$e$.
+
+\begin{definition}
+	A subset $S$ of $M$ is called a \emph{submonoid} of $M$ if $S$ contains~$e$ and is closed under the operation of $M$, which means that $a*b \in S$ for all $a,b \in S$.
+\end{definition}
+
+A submonoid $S$ of $M$ is called a \emph{subgroup} of $M$ if $S$ is a group. If $S$ is a submonoid (resp., a subgroup) of $M$ such that $S \neq M$, then $S$ is called a \emph{proper} submonoid (resp., subgroup) of $M$.
+
+\begin{example}
+    Observe that $\{e\}$ is a submonoid of $M$: the submonoid $\{e\}$ is clearly the smallest (under inclusion) submonoid of $M$. It is called the \emph{trivial submonoid} of $M$. On the other hand, we can see that the group of units $\uu(M)$ is a submonoid of $M$. \hfill $\blacksquare$
+\end{example}
+
+\begin{example} \label{ex:positive monoids}
+	A submonoid $N$ of $\nn_0$ is called a \emph{numerical monoid} if the set $\nn_0 \setminus N$ is finite. For instance, for each $k \in \nn$, the set $N_k := \{0\} \cup \zz_{\ge k}$ is a numerical monoid under the standard operation of addition. \hfill $\blacksquare$
+\end{example}
+		
+\begin{example}
+    A submonoid of $\qq_{\ge 0}$ is called a \emph{Puiseux monoid}. For instance, for any positive $r \in \rr$, the sets $\{0\} \cup \qq_{> r}$ and $\{0\} \cup \qq_{\ge r}$ under the standard addition are Puiseux monoids that are not numerical monoids (prove this!). In addition, the set consisting of all nonnegative dyadic rationals is also a Puiseux monoid under the standard addition, which is not a numerical monoid. \hfill $\blacksquare$
+\end{example}
+		
+\begin{example}
+    A submonoid of $\rr_{\ge 0}$ is called a \emph{positive monoid}. For instance, the set
+	\[
+		\nn_0 + \nn_0 \pi = \{m + n \pi : m,n \in \nn_0\}
+	\]
+	is a positive monoid under the standard addition, which is not a numerical Puiseux monoid (prove this!) \hfill $\blacksquare$
+\end{example}
+
+One can readily check that the intersection of any arbitrary family of submonoids (resp., subgroups) of $M$ is a submonoid (resp., a subgroup) of $M$ (check this!). It turns out that the image of a monoid (resp., a group) under a monoid homomorphism is again a monoid (resp., a group).
+
+\begin{proposition}
+	Let $f \colon M \to N$ be a monoid homomorphism. Then the following statements hold.
+	\begin{enumerate}
+		\item $f(M)$ is a submonoid of $N$.
+		\smallskip
+		
+		\item If $M$ is a group, then $f(M)$ is a group.
+		% \smallskip
+		%
+		% \item $\emph{ker} f := \{m \in M : f(m) = e_N\}$ is a submonoid of $M$. 
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	Exercise.
+\end{proof}
+
+Next we introduce a relevant class of submonoids, which are submonoids that are closed under divisibility. First, let us bring the notion of divisibility to the setting of commutative monoids.
+
+\begin{definition} \label{def:divisibility}
+	Let $M$ be a monoid, and let $a,b \in M$. 
+	\begin{itemize}
+		\item $b$ \emph{divides} $a$ if there exists $c \in M$ such that $a = bc$, in which case we write $b \mid_M a$.
+		\smallskip
+		
+		\item $a$ and $b$ are \emph{associate} in $M$ if $a \mid_M b$ and $b \mid_M a$, in whch case we write $a \sim b$.
+	\end{itemize}
+\end{definition}
+
+%Note that we can think of $M$ as an infinite directed graph $\text{Div}(M)$ whose vertices are the elements of $M$ and, for any $a,b \in M$, there is an edge from $a$ to $b$ if and only if $a \mid_M b$.
+%\medskip
+
+\noindent \textbf{Notation.} When the monoid $M$ is either $(\nn, \cdot)$ or $(\zz \setminus \{0\}, \cdot)$ under the standard multiplication, we write $a \mid b$ instead of $a \mid_M b$ provided that $a$ divides $b$ for some $a,b \in M$.
+\medskip
+
+As in the Definition~\ref{def:divisibility}, let $a$ and $b$ be elements of $M$. If $b \mid_M a$, then we say that $b$ is a \emph{divisor} of $a$ or that $a$ is \emph{divisible} by $b$. Observe that the divisibility relation $\mid_M$ is a binary relation on~$M$ that is reflexive and transitive. However, it is not an equivalence relation as there may be distinct elements $a,b \in M$ with $a \mid_M b$ and $b \mid_M a$. However, the divisibility relation on $M$ induces an order relation on the monoid consisting of all the associate classes of $M$. For $a \in M$, the set
+\[
+	aM^\times := \{au : u \in M^\times\}
+\]
+is called the \emph{associate class} of $a$ in $M$. It turns out that the set $M/M^\times$ consisting of all the associate classes of $M$ is a monoid under the operation $(aM^\times)(bM^\times) := abM^\times$. The monoid $M/M^\times$, also denoted by $M_{\text{red}}$, is called the \emph{reduced monoid} of $M$. Observe that the reduced monoid of $M$ has trivial group of units. We say that a monoid is \emph{reduced} if its group of units is trivial.
+
+We are in a position to introduce divisor-closed submonoids.
+
+\begin{definition}
+    Let $M$ be a monoid, and let $S$ be a submonoid of $M$. We say that $S$ is a \emph{divisor-closed} submonoid of $M$ if for every pair $(m,s) \in M \times S$, the divisibility relation $m \mid_M s$ implies that $m \in S$. 
+\end{definition}
+
+In other words, a submonoid $S$ of $M$ is divisor-closed if all the elements of $M$ dividing at least an element of $S$ are precisely those in $S$.
+
+\begin{example}
+    Given a monoid $(M,*)$ with identity $e$, we have mentioned earlier that the trivial submonoid and the group of invertible elements $\uu(M)$ of $M$ is a submonoid of $M$. As every invertible element $u \in \uu(M)$ divides the identity $e$, we see that the trivial submonoid $\{e\}$ is divisor-closed if and only if $M$ is reduced. Moreover, $\uu(M)$ is always a divisor-closed submonoid of $M$. \hfill $\blacksquare$
+\end{example}
+
+\begin{example}
+    Consider the positive monoid $M := \nn_0 + \nn_0\pi := \{a + b\pi : a,b \in \nn_0 \}$. It is clear that $\nn_0$ is a submonoid of $M$. Suppose that $d \mid_M s$ for some $(d,s) \in M \times \nn_0$, and let us show that $d \in \nn_0$. Take $a_1, a, b \in \nn_0$ such that $d := a+b\pi \mid_M a_1$. Then we can take $a_0, b_0 \in \nn_0$ such that $(a + b\pi) + (a_1 + b_1\pi) = a_0$ or, equivalently,
+    \begin{equation*} %\label{eq:aux 20}
+        (b+b_1)\pi = a_0 - a - a_1.
+    \end{equation*}
+    In this case $b+b_1 = 0$ as otherwise $\pi = \frac{a_0 - a - a_1}{b + b_1}$ would be rational (of course, we know this is not the case). From $b + b_1 \ge 0$ we obtain that $b = b_1 = 0$. Hence $d = a_1 \in \nn_0$, as desired. \hfill $\blacksquare$
+\end{example}
+
+It turns out that the only divisor closed submonoid of a Puiseux monoid are the trivial submonoid and the whole monoid.
+
+\begin{proposition}
+    Let $M$ be a Puiseux monoid. If $S$ is a divisor-closed submonoid, then $S$ is either $\{0\}$ or $M$.
+\end{proposition}
+
+\begin{proof}
+    Let $S$ be a divisor-closed submonoid of the Puiseux monoid $M$. If $S = \{0\}$, we are done. Otherwise, fix $s \in S \setminus \{0\}$. Note that, for any nonzero $m \in M$, the equality $\mathsf{n}(m)\mathsf{d}(s)s = \mathsf{d}(m)\mathsf{n}(s)m$ guaranties that $m \mid_M as \in S$, whence $m \in S$. Hence $S=M$.
+\end{proof}
+
+
+\medskip
+%%%%%%%%%%%%%%%%%%%
+\subsection{Cancellative Monoids}
+
+We proceed to introduce cancellative monoids. Let $M$ be a commutative monoid. An element $m \in M$ is called a \emph{cancellative element} if for all $a,b \in M$ the equality $ma = mb$ implies that $a=b$. The monoid $M$ is called a \emph{cancellative monoid} if every element of $M$ is cancellative.
+
+Every group is obviously an example of a cancellative monoid, and most of the examples of monoids we have discussed so far are cancellative monoids that are not groups. For instance, every nonzero Puiseux/positive monoid is a cancellative monoid, and the multiplicative monoid $\mathbb{N}$ is a cancellative monoid.
+
+\begin{example}
+	The set of integers $\mathbb{Z}$ is a monoid under the standard multiplication, but as $0$ is not a cancellative element in $\mathbb{Z}$, the monoid $(\mathbb{Z}, \cdot)$ is not cancellative.
+\end{example}
+
+The property of being cancellative is preserved under isomorphisms.
+
+\begin{proposition}
+	Let $f \colon M \to M'$ be a monoid isomorphism. If $M$ is cancellative, then $f(M)$ is also cancellative.
+\end{proposition}
+
+\begin{proof}
+	It suffices to prove that $f$ maps cancellative elements to cancellative elements. For this, take a cancellative element $m \in M$ and suppose that the equality  $f(m)a' = f(m)b'$ holds for some $a',b' \in M'$. As $f$ is surejective, we can take $a,b \in M$ with $f(a) = a'$ and $f(b) = b'$. Now observe that
+	\[
+		f(ma) = f(m)f(a) = f(m)a' = f(m)b' = f(m)f(b) = f(mb).
+	\]
+	As $f(ma) = f(mb)$, we can use the fact that $f$ is injective to deduce that $ma = mb$. Finally, the fact that $m$ is a cancellative element in $M'$ guarantees that $a=b$. Hence we conclude that $f$ preserves cancellative elements, which concludes our proof.
+\end{proof}
+
+
+Although the monoids we are mostly concerned in the scope of our research project are cancellative, it will be educative to take a brief look at the notion of power monoid, which are monoids that almost never are cancellative. Consider the following binary operation on the power set of $M$: for subsets $S$ and $T$ of the monoid $M$, set
+\[
+	ST := \{st : (s,t) \in S \times T\}.
+\]
+Such product induces a monoid structure on the power set of $M$, which is often called the \emph{large power monoid} of $M$. The restriction of such a product to the subset of $2^M$ consisting of all nonempty finite subset of $M$ is called the \emph{power monoid} of $M$.
+
+\begin{example}
+	The underlying set of the power monoid $\mathcal{P}_{\text{fin}}(\mathbb{N}_0)$ of the additive monoid $\mathbb{N}_0$ is the set of all nonempty finite set consisting of nonnegative integers. We can observe that the monoid $\mathcal{P}_{\text{fin}}(\mathbb{N}_0)$ is not cancellative as, for instance, 
+	\[
+		\{0,1\} + \{0,2\} = \{0,1,2,3\} = \{0,1\} + \{0,1,2\}
+	\]
+	even though $\{0,2\}$ and $\{0,1,2\}$ are distinct elements of $\mathcal{P}_{\text{fin}}(\mathbb{N}_0)$.
+\end{example}
+
+Every unit of a monoid must be a cancellative element and, because of this, every submonoid of a group must be cancellative. It turns out that every cancellative monoid is isomorphic to a submonoid of a group. This and more will be clear once we introduce the notion of the Grothendieck group of a given monoid.
+%, which is a relevant construction we will see during our first meeting.
+
+
+
+
+
+
+\bigskip
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+\section*{Lecture 3 (by Harold)}
+
+
+
+
+
+\medskip
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Localization}
+
+In this section we discuss a powerful algebraic construction known as localization.
+
+Let $M$ be a commutative monoid written multiplicatively, and let $S$ be a submonoid of $M$. Consider the binary relation $\sim$ on $M \times S$ defined as follows: for any $(m_1,s_1), (m_2,s_2) \in M \times S$, write
+\[
+	(m_1,s_1) \sim (m_2,s_2)
+\]
+if there exists $t \in S$ such that $t s_2 m_1 = ts_1 m_2$. One can readily verify that $\sim$ is an equivalence relation on the set $M \times S$. Let $S^{-1}M$ denote the set of equivalence classes determined by $\sim$ and, for any $(m,s) \in M \times S$, we let $\frac{m}s$ denote the equivalence class of $(m,s)$ in $S^{-1}M$. Now we can define a binary operation on the set $S^{-1}M$ in a natural way using the binary operation of $M$:
+\[
+	\frac{m_1}{s_1} \cdot \frac{m_2}{s_2} = \frac{m_1m_2}{s_1s_2}
+\]
+for all $(m_1,s_1), (m_2,s_2) \in M \times S$. It is routine to verify that the operation just defined on $S^{-1}M$ is actually well defined and turn $S^{-1}M$ into a monoid with identity element $\frac11$.
+
+\begin{definition} \label{def:localization}
+	Let $M$ be a commutative monoid, and let $S$ be a submonoid of $M$. The monoid $S^{-1}M$, also denoted by $M_S$ is called the \emph{localization} of $M$ at $S$.
+\end{definition}
+
+If $M$ is written additively, then the localization of $M$ at a submonoid $M$ is denoted by either $-S+M$ or $M_S$. It turns out that localizations of monoids satisfy the following universal property.
+
+\begin{proposition} \label{prop:localization of monoid}
+	\uses{def:localization}
+	For a monoid $M$ and a submonoid $S$ of $M$, let $\iota \colon M \to M_S$ be the monoid homomorphism defined as follows: $\iota(m) = \frac{m}{1}$ for all $m \in M$. Then the following statements hold.
+	\begin{enumerate}
+		\item $\iota(S) \subseteq M_S^\times$.
+		\smallskip
+		
+		\item If $f \colon M \to N$ is a monoid homomorphism such that $f(S) \subseteq N^\times$, then there exists a unique monoid homomorphism $g \colon M_S \to N$ such that $g \circ \phi = f$.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	(1) For any $s \in S$, we see that $\frac1s \in M_S$ and so we can immediately obtain that the inverse of $\iota(s)$ in $M_S$ is $\frac1s$ from the fact that $\iota(s) \cdot \frac1s = \frac{s}1 \cdot \frac1s = \frac11$. Thus, $\iota(S) \subseteq M_S^\times$.
+
+	(2) Let now $f \colon M \to N$ be a monoid homomorphism such that $f(S) \subseteq N^\times$. Define $g \colon M_S \to N$ as follows: $g\big( \frac{m}{s}\big) = f(m) f(s)^{-1}$ for all $(m,s) \in M \times S$. It is routine to argue that $g$ is a well-defined monoid homomorphism. In addition, we see that
+	\[
+		g(\iota(m)) = g\Big( \frac{m}1 \Big) = f(m)f(1)^{-1} = f(m)
+	\]
+	for all $m \in M$, whence $g \circ \iota = f$. Finally, let us argue the uniqueness of~$g$. To do so, assume that $g' \colon M_S \to N$ is a monoid homomorphism % with $g'(S) \subseteq N^\times$ 
+	such that $g' \circ \phi = f$. In this case, we obtain that
+	\[
+		g'\Big(\frac{m}s\Big) = g'(\iota(m)) \cdot g'(\iota(s)^{-1}) = f(m) \cdot f(s)^{-1} = g\Big(\frac{m}s\Big),
+		%g'\Big(\frac{m}s\Big) = g'\Big(\frac{m}1\Big) g'\Big(\frac1s\Big) = g'(\iota(m)) \cdot g'(\iota(s)^{-1}) = f(m) \cdot f(s)^{-1} = g\Big(\frac{m}s\Big),
+	\]
+	for all $(m,s) \in M \times S$. Therefore the uniqueness of the monoid homomorphism $g$ follows, which concludes our proof.
+\end{proof}
+
+Let us take a look at a couple of examples.
+
+\begin{example}
+    Consider the multiplicative monoid $\nn$, and fix a prime $p \in \pp$. Note that the set $S := \{p^k : k \in \nn_0\}$ is a submonoid of $\nn_0$. Then we can localize $\nn$ at $S$ to obtain
+    \[
+        \nn_S := \Big\{ \frac{n}{2^k} : n,k \in \nn \Big\}.
+    \]
+    In particular, the localization of $\nn$ at $S$ is the multiplicative monoid consisting of all positive $p$-adic rationals. \hfill $\blacksquare$
+\end{example}
+
+\begin{example}
+    We can now consider the same multiplicative monoid $\nn$ but localize it instead at its largest submonoid $S$ under inclusion, itself: $S = \nn$. In this case, we obtain that
+    \[
+        \nn_\nn := \Big\{ \frac{n}{d} : n,d \in \nn \Big\} = \qq_{>0}.
+    \]
+    Therefore the localization of $\nn$ at itself is the abelian group $\qq_{>0}$. \hfill $\blacksquare$
+\end{example}
+
+The localization of a monoid at itself is one of the most relevant examples of localization as it allows us to embed a given monoid into an abelian group provided that the monoid is cancellative. We will delve into this type of localization in the next section.
+
+
+
+\medskip
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Grothendieck Group}
+
+It turns out that every cancellative monoid is isomorphic to a submonoid of an abelian group. Before proving this, let us introduce the notion a Grothendieck group.
+
+\begin{definition} \label{def:Grothendieck group}
+	Let $M$ be a commutative monoid. The localization of $M$ at~$M$ is denoted by $\gp(M)$ and called the \emph{Grothendieck group} of~$M$.
+\end{definition}
+
+%Let $\iota \colon M \to \mathcal{G}(M)$ be the localization homomorphism of $M$ with respect to~$M$, and let $G$ be an abelian group containing an isomorphic copy of $M$ as a submonoid. Let $f \colon M \to G$ be an injective monoid homomorphism. As $G$ is a group, Proposition~\ref{prop:localization of monoid} ensures the existence of a group homomorphism $g \colon \gp(M) \to G$ such that $g \circ \iota = f$. Observe that for all $m,s \in M$ with $g\big(\frac{m}s \big) = 1$, 
+%\[
+%	1 = g\Big( \frac{m}s\Big) = g\Big( \frac{m}1  \cdot \Big( \frac{s}1\Big)^{-1} \Big) = g\Big(\frac{m}1 \Big) g\Big( \Big( \frac{s}1\Big)^{-1} \Big) = g( \iota(m)) g(\iota(s)^{-1}) = f(m)f(s)^{-1},
+%\]
+%and so $f(s) = f(m)$. Thus, from the fact that $f$ is injective one obtains that $\ker g$ is trivial, which means that $g$ is also injective. Hence $G$ also contains an isomorphic copy of $\gp(M)$, namely, $g(\gp(M))$.
+
+\begin{proposition} \label{prop:Grothendieck group, unversal property}
+	\uses{prop:localization of monoid,def:Grothendieck group}
+	Let $M$ be a cancellative monoid with Grothendieck group $\gp(M)$. Then any abelian group $G$ containing an isomorphic copy of~$M$ as a submonoid also contains an isomorphic copy of~$\gp(M)$ as a subgroup.
+\end{proposition}
+
+\begin{proof}
+	Let $\iota \colon M \to \mathcal{G}(M)$ be the localization homomorphism of $M$ with respect to~$M$, and let $G$ be an abelian group containing an isomorphic copy of $M$ as a submonoid. Then there is a monoid homomorphism $f \colon M \to G$ that is injective. As $G$ is a group, Proposition~\ref{prop:localization of monoid} ensures the existence of a group homomorphism $g \colon \gp(M) \to G$ such that $g \circ \iota = f$. Observe that for all $m,s \in M$ with $g\big(\frac{m}s \big) = 1$, 
+	\[
+		1 \! = \! g\Big( \frac{m}s\Big) \! = \! g\Big( \frac{m}1  \Big( \frac{s}1\Big)^{-1} \Big) \! = \! g\Big(\frac{m}1 \Big) g\Big( \Big( \frac{s}1\Big)^{-1} \Big) \! = \! g( \iota(m)) g(\iota(s)^{-1}) \! = \! f(m)f(s)^{-1},
+	\]
+	and so $f(s) = f(m)$. Thus, from the fact that $f$ is injective one obtains that $\ker g$ is trivial, which means that $g$ is also injective. Hence $G$ also contains an isomorphic copy of $\gp(M)$, namely, $g(\gp(M))$.
+\end{proof}
+
+Here is a useful result.
+
+\begin{proposition}
+	Let $A$ be an abelian group and let $M$ be a submonoid of $A$. Then there exists a subgroup $G$ of $A$ such that $M \subseteq G \subseteq A$ and $G$ is isomorphic to the Grothendieck group of $M$.
+\end{proposition}
+
+\begin{proof}
+	Exercise.
+\end{proof}
+
+\begin{theorem} \label{thm:isomorphism extends to gp}
+	\uses{prop:localization of monoid,def:Grothendieck group}
+	Let $f \colon M \to N$ be an isomorphism of monoids, and let $i_M \colon M \to \gp(M)$ and $i_N \colon N \to \gp(N)$ be the canonical embeddings of $M$ and $N$ into their corresponding Grothendieck groups. 
+%	Then the following statements hold.
+%	\begin{enumerate}
+%		\item 
+	There is a unique group homomorphism $F \colon \gp(M) \to \gp(N)$ extending $f$, which means that $F \circ i_M = i_N \circ f$ or that the following diagram commutes:
+	\begin{equation} \label{eq:extension homomorphism to Grothendieck groups}
+		\begin{tikzcd}
+			M \arrow[r, "f"] \arrow[d, "i_M"'] & N \arrow[d, "i_N"] \\
+			\gp(M) \arrow[r, dashed, "F"'] & \gp(N)
+		\end{tikzcd}
+		%\caption{A group homomorphism $F$ extending a given monoid homomorphism $f$.}
+		%\label{fig:extension homomorphism to Grothendieck groups}
+	\end{equation}
+		%\item 
+		
+		\noindent Moreover, if $f$ is injective (resp., surjective, bijective) so is group homomorphism~$F$.
+	%\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	As $\gp(N)$ is a group, $i_N \circ f$ sends every element of $M$ to a unit, and so there exists a group homomorphism $F \colon \gp(M) \to \gp(N)$ such that the diagram~\ref{eq:extension homomorphism to Grothendieck groups} commutes, that is,
+	\[
+		F \circ i_M = i_N \circ f,
+	\]
+	and so the first statement of the theorem is established.
+	\smallskip
+	
+	For the last statement of the theorem, it suffices to address separately the cases when $f$ is surjective and injective, which we proceed to do.
+	\begin{itemize}
+		\item Assume first that $f$ is a surjective monoid homomorphism. Then there is a monoid homomorphism $g \colon N \to M$ such that $f \circ g = \mathrm{id}_N$. It follows that:
+		\[
+			F \circ i_M \circ g = (F \circ i_M) \circ g = i_N \circ f \circ g = i_N.
+		\]
+		where $F \circ i_M = i_N \circ f$ (by the part of the theorem we have already established). Therefore $F \circ G = \mathrm{id}_{\mathsf{G}(N)}$, which implies that $F \circ G \colon \gp(N) \to \gp(N)$ is a monoid homomorphism making the diagram~\eqref{eq:extension homomorphism to Grothendieck groups} commute. As a result, $F \circ G = \mathrm{id}_{\mathsf{G}(N)}$, and so $F$ is surjective.
+		\smallskip
+		
+		\item Now assume that $f$ is injective. Then we can take a surjective monoid homomorphism $g \colon N \to M$, and so there exists a group homomorphism $G \colon \gp(N) \to \gp(M)$ such that $G \circ i_N = i_M \circ g$. Then we can proceed similarly to argue that $G \circ F = \mathrm{id}_{\gp(M)}$. Hence $F$ is injective.
+	\end{itemize}
+\end{proof}
+
+It is clear that every abelian group is its own Grothendieck group. Let us take a look at some further example of localization of monoids and Grothendieck groups.
+
+\begin{example}
+	The Grothendieck group of the additive monoid $\nn_0$ is $-\nn_0 + \nn_0$, which is the abelian group~$\zz$. Similarly, we can check that the Grothendieck groups of $\qq_{\ge 0}$ and $\rr_{\ge 0}$ are $\qq$ and $\rr$, respectively. \hfill $\blacksquare$
+\end{example}
+
+\begin{example}
+	 We proceed to determine all possible localizations of the additive monoid~$\nn_0$. Fix a nontrivial submonoid $S$ of $\nn_0$, and let us show that $-S + \nn_0 = \zz$. We only need to verify that $\zz \subseteq -S + \nn_0$ as it is clear that $-S + \nn_0 \subseteq \zz$. As $S$ is nontrivial, $S$ must contain a positive integer~$s$. Now fix $n \in \zz$. If $n \ge 0$, then $n \in 0 + \nn_0 \subseteq -S + \nn_0$. Otherwise, we can take $m \in \nn$ large enough so that $-ms \le n$, and so $-ms \in -S$ and $n+ms \in \nn_0$, from which we obtain that $n = -cs + (n + cs) \in -S + \nn_0$. Hence the inclusion $-S + \nn_0$ also holds. Thus, when we localize $\nn_0$ at any nontrivial submonoid we obtain~$\zz$. In particular, $\zz$ is the Grothendieck group of $\nn_0$. \hfill $\blacksquare$
+\end{example}
+
+
+
+\begin{example} \label{ex:Grothendieck group of a NM}
+	\uses{def:Grothendieck group}
+	Let $N$ be a numerical monoid. Then $\mathcal{G}(N) = \{b-c : b,c \in N\} \subseteq \zz$. As $N$ is co-finite, it must contain two consecutive positive integers and so $1 \in \mathcal{G}(N)$. Thus, $-1 \in \mathcal{G}(N)$ and, as a consequence $\zz = \nn \cdot 1 + \nn \cdot (-1) \subseteq \mathcal{G}(N)$. Hence $\gp(N) = \zz$. \hfill $\blacksquare$
+%	\smallskip
+%	Clearly, the inclusion map $\iota \colon N \to \zz$ is an injective monoid homomorphism. Let us argue that we can take the codomain of $\iota$ as the Grothendieck group of $N$. In order to do so, it suffices to check that and let us argue that the inclusion map $\iota \colon N \to \zz$ $\zeta \colon N \subseteq \nn_0 \to \zz$ be the inclusion homomorphism. and let us argue that the Grothendieck group $G := \gp(M)$ of $N$ can be taken to be $\zz$. To do so, take....
+\end{example}
+
+\begin{example}
+	Let $q$ be a positive rational number, and let $M_q$ denote the Puiseux monoid $\nn_0[q]$, which can be generated by the set $\{q^n : n \in \nn_0\}$. Let us argue that the Grothendieck group
+	\[
+		G := \{r-s : r,s \in M_q\}
+	\]
+	of $M_q$ is $\zz[q]$. Since any element of $M_q$ has the form $f(q)$ for some $f \in \nn_0[x]$, any element of $G$ has the form $f(q) - g(q) = (f-g)(q)$ for some $f,g \in \nn_0[x]$ and so $f(q) - g(q) = (f-g)(q) \in \zz[q]$ because $f-g \in \zz[x]$. Hence the inclusion $G \subseteq \zz[q]$ holds. %implies that $f(q)$  $M_q$ are\zz[q]$ is an abelian group  The inclusion $G \subseteq \zz[q]$ clearly holds because any... Now observe that
+%	\[
+%		\mathcal{G}(M_q) := \big\{ f(q) - g(q) : f,g \in \nn_0[q] \big\} \subseteq \zz[q].
+%	\]
+	For the reverse inclusion, note that $1 \in M_q \subseteq G$, which guarantees that $-1 \in G$. Thus, $\zz \subseteq G$. Now write $q = a/b$ for some $a,b \in \nn$ such that $\gcd(a,b) = 1$. For each $k \in \nn$, the fact that $\gcd(a^{k+1},b) = 1$ allows us to take coefficients $c,d \in \zz$ such that $1 = c a^{k+1} + d b$, which implies that
+	\begin{equation} \label{eq:Bezout}
+		\frac1{b^{k+1}} = c q^{k+1} + d \frac1{b^k}.
+	\end{equation}
+	For each $k \in \nn_0$, it follows from~\eqref{eq:Bezout} that $\frac1{b^{k+1}} \in G$ provided that $\frac1{b^k} \in G$. Thus, it follows from induction on $k$ that $\frac1{b^k} \in G$ for every $k \in \nn_0$ (the base case, $1 \in G$, has been already established at the beginning of the paragraph). As $G$ is a group, the inclusion $\big\{ \pm \frac1{b^k} : k \in \nn_0 \big\} \subseteq G$ holds, and so $\zz[q] = \{\pm q^k : k\in \nn_0 \} \subseteq G$. As a consequence, $\gp(\nn_0[q]) = \zz[q]$. \hfill $\blacksquare$
+%	As the inclusion $\phi \colon M_q = \nn_0[q] \to \zz[q]$ is an injective monoid homomorphism, it must factor through the universal injective monoid homomorphism $\iota \colon M_q \mapsto \gp(M_q)$, which means that there exists a group homomorphism $f \colon \gp(M_q) \to \zz[q]$ such that $\phi(r) = f(\iota(r))$ for all $r \in M$.
+\end{example}
+
+
+
+
+
+\bigskip
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Lecture 4 (by Victor)}
+\medskip
+
+
+\medskip
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Sums and Products of Monoids}
+
+Let $I$ be a nonempty set. For each $i \in I$, let $S_i$ be a set. The \emph{product} of the sets $S_i$ is the set $\prod_{i \in I} S_i$ consisting of all functions $f \colon I \to \bigcup_{i \in I} S_i$ with $f(i) \in S_i$ for all $i \in I$:
+\[
+	\prod_{i \in I} S_i := \Big\{ f \colon I \to \bigcup_{i \in I} S_i : f(i) \in S_i \text{ for all } i \in I \Big\}.
+\]
+We often denote a function $f \in \prod_{i \in I} S_i$ as $(c_i)_{i \in I}$, where $c_i := f(i) \in M_i$ for all $i \in I$. If $S_i = S$ for all $i \in I$, we write $S^I$ instead of $\prod_{i \in I} S_i$. Observe that if $S_j$ is empty for some $j \in I$, then $\prod_{i \in I} S_i$ is also empty. Also, if $S_i$ is nonempty for all $i \in I$ but $S_j$ is an infinite set for some $j \in I$, then the product $\prod_{i \in I} S_i$ is an infinite set. If $I$ is finite and $S_i$ is a finite set for every $i \in I$, then
+\[
+	\Big{|} \prod_{i \in I} S_i\Big{|} = \prod_{i \in I} |S_i|.
+\]
+For $n \in \nn$ and sets $S_1, \dots, S_n$, we can also consider the set of $n$-tuples
+\[
+	S_1 \times \dots \times S_n := \{(s_1, \dots, s_n) : s_i \in S_i \text{ for all } i \in \ldb 1,n \rdb\},
+\]
+and we write $S^n$ instead of $S_1 \times \dots \times S_n$ if $S_i = S$ for every $i \in \ldb 1, n \rdb$. Although $S_1 \times \dots \times S_n$ and $\prod_{i \in \ldb 1,n \rdb} S_i$ are technically different (as in the second one the order does not matter), they are essentially the same set because the only intrinsic attribute of a set is its cardinality and
+\[
+	|S_1 \times \dots \times S_n| = |S_{\sigma(1)} \times \dots \times S_{\sigma(n)}| = \bigg{|} \prod_{i \in \ldb 1,n \rdb} S_i \bigg{|}
+\]
+for any permutation $\sigma$ of $\ldb1,n\rdb$. Motivated by this, when we write the functions in $\prod_{i \in S} S_i$ as $(c_i)_{i \in I}$, we call them $I$-\emph{tuples} or, simply, \emph{tuples}. The product of sets that are also monoids can be naturally turned into a monoid. 
+\smallskip
+
+For the rest of this section, let $I$ be a nonempty set, and let $(M_i)_{i \in I}$ be a family of monoids, where we let $1_{M_i}$ denote the identity element of the monoid $M_i$. Then set
+\[
+	M := \prod_{i \in I} M_i.
+\]
+We can define a binary operation on $M$ in the following natural way:
+\begin{equation} \label{eq:componentwise operation}
+	(b_i)_{i \in I} \cdot (c_i)_{i \in I} := (b_ic_i)_{i \in I}
+\end{equation}
+for all $I$-tuples $(b_i)_{i \in I}$ and $(c_i)_{i \in I}$ in $M$. It is routine to show that, under the binary operation we have just defined, which we call the \emph{componentwise operation}, $M$ is a monoid with identity element $(1_{M_i})_{i \in I}$.
+
+\begin{definition}
+	For a nonempty familiy of monoids $(M_i)_{i \in I}$, the product set $\prod_{i \in I} M_i$ under componentwise operation is called the \emph{product monoid} of the family $(M_i)_{i \in I}$.
+\end{definition}
+
+Observe that the group of units of $M$ is the product of the groups of units of the componentwise monoid: $M^\times = \prod_{i \in I} M_i^\times$, and this immediately implies both statements of the following proposition.
+
+\begin{proposition}
+	For a nonempty set $I$, let $(M_i)_{i \in I}$ be a family of monoids. Then the following statements hold.
+	\begin{enumerate}
+		\item $M^\times = \prod_{i \in I} M_i^\times$.
+		\smallskip
+		
+		\item $M$ is reduced if and only if $M_i$ is reduced for all $i \in I$.
+		\smallskip
+		
+		\item $M$ is a group if and only if $M_i$ is a group for all $i \in I$.
+	\end{enumerate}
+\end{proposition}
+
+An $I$-tuple $(b_i)_{i \in I} \in \prod_{i \in I} M_i$ is said to have \emph{finite support} if $b_i$ is the identity element of $M_i$ for all but finitely many $i \in I$. We let $\bigoplus_{i \in I} M_i$ denote the subset of the product monoid $\prod_{i \in I} M_i$ consisting of all the $I$-tuples having finite support. Clearly, $\bigoplus_{i \in I} M_i$ is a submonoid of $\prod_{i \in I} M_i$.
+
+\begin{definition}
+	For a nonempty set $I$, let $(M_i)_{i \in I}$ be a family of monoids. The submonoid $\bigoplus_{i \in I} M_i$ of $\prod_{i \in I} M_i$ is called the \emph{sum} or \emph{internal product} of the family $(M_i)_{i \in I}$. 
+\end{definition}
+
+If $M_i = M$ for all $i \in I$, the internal product of the family $(M_i)_{i \in I}$ is denoted by $M^{(I)}$ instead of $\bigoplus_{i \in I} M$.
+\color{black}
+
+
+
+\bigskip
+\section*{Exercises -- Intro to Commutative Monoids}
+
+\begin{exe}
+    Let $\nn_0[x]$ be the set consisting of all polynomials with nonnegative integer coefficients. For $q \in \qq_{>0}$, consider the following subset of $\qq$:
+	\[
+		\nn_0[q] := \{p(q) : p(x) \in \nn_0[x]\}.
+	\]
+	\begin{enumerate}
+        \item What is the group of units of the additive monoid $(\nn_0[q],+)$?
+        \smallskip
+        
+		\item Find the group of unit of the multiplicative monoid $(\nn_0[q] \setminus \{0\}, \cdot)$.
+    \end{enumerate}
+\end{exe}
+\smallskip
+
+\begin{exe}
+	Let $f \colon M \to N$ be a monoid homomorphism. Then the following statements hold.
+	\begin{enumerate}
+		\item $f(M)$ is a submonoid of $N$.
+		\smallskip
+		
+		\item If $M$ is a group, then $f(M)$ is a group.
+		% \smallskip
+		
+		% \item $\text{ker} f := \{m \in M : f(m) = e_N\}$ is a submonoid of $M$. 
+	\end{enumerate}
+\end{exe}
+\smallskip
+
+\begin{exe}
+	\hfill
+	\begin{enumerate}
+		\item Prove that every submonoid of $\nn_0$ is isomorphic to a numerical monoid.
+		\smallskip
+		
+		\item Prove that, for each $r \in \rr_{> 0}$, the set $\{0\} \cup \qq_{> r}$ is a Puiseux monoid that is not isomorphic to any numerical monoid.
+		\smallskip
+		
+		\item Prove that the set $\nn_0 + \nn_0 \pi$ is a positive monoid that is not isomorphic to any Puiseux monoid.
+	\end{enumerate}
+\end{exe}
+\smallskip
+
+\begin{exe}
+    Let $M$ be a monoid. Prove that the arbitrary intersection of submonoids of $M$ is again a submonoid of $M$.
+\end{exe}
+
+\begin{exe}
+    \hfill
+    \begin{enumerate}
+        \item Find all divisor-closed submonoids of the positive monoid
+        \[
+            \{a + \pi b : a,b \in \nn_0 \}.
+        \]
+        \smallskip
+        
+        \item Prove that $\nn_0$ is a divisor-closed submonoid of
+        \[
+            M := \{a + b\sqrt{2} : a,b \in \nn_0 \}.
+        \]
+        \smallskip
+        
+        \item Prove that $\nn$ a submonoid of the multiplicative monoid
+        \[
+            \{a + b\sqrt{2} : a,b \in \nn_0 \text{ and } a+b \ge 1 \}
+        \]
+        that is not a divisor-closed submonoid.
+    \end{enumerate}
+\end{exe}
+\smallskip
+
+\begin{exe}
+	Let $M$ be a cancellative monoid. Prove that if $M$ has only finitely many elements, then~$M$ is a group.
+\end{exe}
+\smallskip
+
+
+\begin{exe}
+    Find all possible commutative monoid such that the power monoid $\mathcal{P}_{\text{fin}}(M)$ is cancellative monoid.
+\end{exe}
+\smallskip
+
+
+\begin{exe}
+    Find all possible localizations of the multiplicative monoid $\nn$.
+\end{exe}
+\smallskip
+
+\begin{exe}
+	 \hfill
+	\begin{enumerate}
+			\item[(a)] For each $r \in \rr_{> 0}$, find the Grothendieck group of the Puiseux monoid $\{0\} \cup \qq_{> r}$.
+			\smallskip
+			
+			\item[(b)] Prove that the Grothendieck group of the positive monoid $\nn_0 + \nn_0 \pi$ is isomorphic to the abelian group $\zz \times \zz$ (under component-wise addition).
+		\end{enumerate}
+\end{exe}
+\smallskip
+
+\begin{exe}
+	Find the Grothendieck group of the additive monoid $(\nn_0[q],+)$.
+\end{exe}
+\smallskip
+
+\begin{exe}
+	Find the Grothendieck group of the multiplicative monoid $(\nn_0[q] \setminus \{0\}, \cdot)$.
+\end{exe}
+\smallskip
+
+\section*{Appendix: Homework \& Research Transition Problem Set}
+
+\subsection*{HW1}
+TBA
+
+\subsection*{HW2}
+TBA
+
+\subsection*{HW3} Let $\mathbb{N}_0[x]$ be the set consisting of all polynomials with nonnegative integer coefficients, that is
+
+\[
+    \mathbb{N}_0[x] := \left\{ \sum_{i=o}^n c_ix^i : n \in \mathbb{N}_0 \text{ and } c_0, \ldots, c_n \in \mathbb{N}_0 \right\}.
+\]
+
+For each $r \in \mathbb{R}$, let
+\[
+    \mathbb{N}_0[r] := \{ p(r) : p(x) \in \mathbb{N}_0[x] \}.
+\]
+
+
+\medskip
+\noindent\textbf{Ex 1.}
+
+\begin{enumerate}
+  \item[(a)] Prove that, for any $r \in \mathbb{R}$, the pair $(\mathbb{N}_0[r], +)$ is a monoid if ``$+$'' is the standard addition in $\mathbb{R}$.
+  \item[(b)] For which $q \in \mathbb{Q}$ is $(\mathbb{N}_0[q], +)$ a group?
+  \item[(c)] For which $r \in \mathbb{R}$ is $(\mathbb{N}_0[r], +)$ isomorphic to the additive monoid $\mathbb{N}_0[x]$ (under the standard addition of polynomials)?
+\end{enumerate}
+
+\medskip
+\noindent\textbf{Ex 2.} Fix $r \in \mathbb{Q}_{>0}$, and consider the Puiseux monoid $(\mathbb{N}_0[r], +)$. 
+
+
+\begin{enumerate}
+  \item[(a)] Prove that for any positive $q \in \mathbb{N}_0[r]$ we can write
+  \begin{equation}\label{eq:I}
+    q = c_0(q) + \sum_{n \in \mathbb{N}} c_n(q) r^n, \tag{I}
+  \end{equation}
+  
+  where $(c_n(q))_{n \ge 0}$ is a sequence of nonnegative integers such that there are only finitely many $n \in \mathbb{N}_0$ with $c_n(q) \neq 0$.
+
+  \item[(b)] Prove that there exists a unique sum decomposition \eqref{eq:I} such that
+  \[
+    c_n(q) < d(r) \qquad \text{for all } n \ge 1.
+  \]
+  This is called the \emph{CSD} of $q$ in $\mathbb{N}_0[r]$.
+
+  \item[(c)] For any $q_1, q_2 \in \mathbb{N}_0[r]$, 
+  prove that $q_1 \mid_{\mathbb{N}_0[r]} q_2$ if and only if \textbf{3FDPM}.
+\end{enumerate}
+
+
+
+
+\bigskip
+
+
+
+\ifdefined\ISBLUEPRINT\else
+\end{document}
+\fi

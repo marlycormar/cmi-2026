@@ -1,0 +1,16 @@
+div.theorem_thmcontent,
+div.prop_thmcontent,
+div.lemma_thmcontent,
+div.cor_thmcontent {
+  border-left: 0.15rem solid black;
+}
+
+div.definition_thmcontent,
+div.example_thmcontent,
+div.remark_thmcontent {
+  border-left: 0.1rem solid #666;
+}
+
+div.proof_content {
+  border-left: 0.08rem solid grey;
+}

@@ -1,0 +1,15 @@
+/.lake
+.venv/
+.DS_Store
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.pdf
+*.synctex.gz
+blueprint/print/
+blueprint/web/
+blueprint/lean_decls
+blueprint/src/web.paux
+blueprint-cmi.code-workspace

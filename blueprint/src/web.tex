@@ -1,0 +1,25 @@
+% HTML blueprint wrapper around the shared lecture-note content.
+\documentclass[11pt]{amsart}
+
+\usepackage{amssymb, amsthm, amsmath, mathtools}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+\usepackage{stmaryrd}
+\usepackage{calrsfs}
+\usepackage[showmore, dep_graph]{blueprint}
+
+\input{macros/common}
+\input{macros/web}
+
+\home{}
+\github{}
+\dochome{}
+
+\title{CMI 2026: Lecture Notes \\ \phantom{blank} \\ Intro to Commutative Monoids and Semirings}
+\author{Mentor: Dr. Felix Gotti}
+
+\begin{document}
+\maketitle
+\input{content}
+\end{document}
