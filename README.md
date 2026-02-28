@@ -7,18 +7,6 @@ This repo contains the [CMI 2026](https://sites.mit.edu/cmi2026/) lecture-note b
 
 The blueprint sources live under [blueprint/src](./blueprint/src). The content file there imports `main.tex`, so the notes can still be edited in one place.
 
-Typical local commands:
-
-```sh
-./.venv/bin/leanblueprint pdf
-./.venv/bin/leanblueprint web
-./.venv/bin/leanblueprint all
-lake update checkdecls
-lake -R -Kenv=dev update doc-gen4
-lake build
-lake exe checkdecls blueprint/lean_decls
-```
-
 ## Updating The Dependency Graph
 
 The dependency graph is generated from annotations in [main.tex](./main.tex).
@@ -56,6 +44,31 @@ If you also want the PDF rebuilt:
 
 ```sh
 ./.venv/bin/leanblueprint all
+```
+
+## Useful Commands
+
+```sh
+# Build the blueprint PDF from the LaTeX sources.
+./.venv/bin/leanblueprint pdf
+
+# Build the HTML blueprint site, including the dependency graph.
+./.venv/bin/leanblueprint web
+
+# Build both PDF and HTML outputs.
+./.venv/bin/leanblueprint all
+
+# Update `checkdecls` metadata from upstream dependencies.
+lake update checkdecls
+
+# Update doc-gen4 in the dev environment.
+lake -R -Kenv=dev update doc-gen4
+
+# Compile the Lean project.
+lake build
+
+# Run declaration checks against blueprint-generated declarations.
+lake exe checkdecls blueprint/lean_decls
 ```
 
 ## Acknowledgments
