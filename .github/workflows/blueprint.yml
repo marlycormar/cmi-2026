@@ -14,13 +14,11 @@ permissions:
   contents: read
   pages: write
   id-token: write
-  issues: write
-  pull-requests: write
 
 jobs:
-  build_project:
+  build:
     runs-on: ubuntu-latest
-    name: Build project
+    name: Build blueprint
     steps:
       - name: Cleanup to free disk space
         uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
@@ -38,13 +36,33 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set up GitHub Pages
+        uses: actions/configure-pages@v5
+
       - name: Build and lint project
         uses: leanprover/lean-action@434f25c2f80ded67bba02502ad3a86f25db50709
         with:
           build: true
           mk_all-check: true
 
-      - name: Compile blueprint and documentation
+      - name: Compile blueprint
         uses: leanprover-community/docgen-action@deed0cdc44dd8e5de07a300773eb751d33e32fc8
         with:
           blueprint: true
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: blueprint/web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy GitHub Pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
