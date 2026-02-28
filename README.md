@@ -1,3 +1,6 @@
+![Lean](https://img.shields.io/badge/Lean-v4.29.0--rc2-blue)
+![mathlib](https://img.shields.io/badge/mathlib-v4.29.0--rc2-blue)
+
 # CMI 2026
 
 This repo contains the [CMI 2026](https://sites.mit.edu/cmi2026/) lecture-note [blueprint](https://github.com/PatrickMassot/leanblueprint) site. These notes are constantly being updated, so use them at your own risk. Feel free to report any issues/errors by creating an issue.
