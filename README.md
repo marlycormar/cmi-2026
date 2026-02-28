@@ -7,6 +7,69 @@ This repo contains the [CMI 2026](https://sites.mit.edu/cmi2026/) lecture-note b
 
 The blueprint sources live under [blueprint/src](./blueprint/src). The content file there imports `main.tex`, so the notes can still be edited in one place.
 
+## Local Setup
+
+The repo does not commit `.venv`, so you need to create it locally before using
+`leanblueprint`.
+
+### Prerequisites
+
+You need:
+
+- Python 3.12
+- Lean via `elan`
+- a TeX distribution with `latexmk` and `pdflatex`
+- Graphviz, including the development libraries needed by `pygraphviz`
+
+On macOS with Homebrew and MacTeX, a typical setup is:
+
+```sh
+brew install python@3.12 graphviz
+brew install elan-init
+brew install --cask mactex-no-gui
+```
+
+On Ubuntu/Debian, the corresponding packages are typically:
+
+```sh
+sudo apt install python3.12 python3.12-venv graphviz libgraphviz-dev elan texlive-full
+```
+
+If you install `elan` separately, make sure it is on your `PATH`, then install
+the Lean toolchain declared in [lean-toolchain](./lean-toolchain):
+
+```sh
+elan default "$(cat lean-toolchain)"
+```
+
+### Create The Virtual Environment
+
+From the repository root, run:
+
+```sh
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install leanblueprint
+```
+
+Installing `leanblueprint` pulls in the Python-side dependencies used here,
+including `plasTeX`, `plastexdepgraph`, `plastexshowmore`, and `pygraphviz`.
+If `pygraphviz` fails to build, the usual cause is that Graphviz or its headers
+are missing.
+
+### Initialize Lean Dependencies
+
+After the Python environment is ready, fetch the Lean dependencies and build the
+project:
+
+```sh
+lake update
+lake build
+```
+
+At that point, the local commands below should work.
+
 ## Updating The Dependency Graph
 
 The dependency graph is generated from annotations in [main.tex](./main.tex).
