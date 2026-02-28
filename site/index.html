@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CMI 2026</title>
+    <meta
+      name="description"
+      content="CMI 2026 lecture notes, blueprint site, and dependency graph."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <nav class="hero-nav" aria-label="Primary">
+          <a href="./blueprint/">Blueprint</a>
+          <a href="./blueprint/dep_graph_document.html">Dependency Graph</a>
+          <a href="./blueprint.pdf">PDF</a>
+          <a href="https://github.com/marlycormar/cmi-2026">Repository</a>
+        </nav>
+        <div class="brand-line" aria-label="Site identity">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <div>
+            <p class="brand-name">Massachusetts Institute of Technology</p>
+            <p class="brand-subtitle">CMI 2026</p>
+          </div>
+        </div>
+        <p class="eyebrow">MIT Canada/USA Mathcamp Initiative</p>
+        <h1>CMI 2026</h1>
+        <p class="hero-copy">
+          Lecture notes for the commutative monoids and semirings reading group,
+          published as a Lean blueprint site with a browsable dependency graph.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="./blueprint/">Open the notes</a>
+          <a class="button button-secondary" href="./blueprint/dep_graph_document.html">
+            Explore the graph
+          </a>
+        </div>
+      </header>
+
+      <main>
+        <section class="panel panel-grid" aria-labelledby="start-here">
+          <div>
+            <p class="section-tag">Start Here</p>
+            <h2 id="start-here">Three ways to use the site</h2>
+          </div>
+          <div class="card-grid">
+            <article class="card">
+              <p class="card-kicker">Reading</p>
+              <h3>Blueprint</h3>
+              <p>
+                Read the structured web version of <code>main.tex</code>, with
+                theorem statements, labels, and cross-links.
+              </p>
+              <a href="./blueprint/">Go to blueprint</a>
+            </article>
+            <article class="card">
+              <p class="card-kicker">Structure</p>
+              <h3>Dependency graph</h3>
+              <p>
+                Inspect how the definitions, propositions, and theorems depend
+                on each other across the notes.
+              </p>
+              <a href="./blueprint/dep_graph_document.html">Open graph</a>
+            </article>
+            <article class="card">
+              <p class="card-kicker">Offline</p>
+              <h3>Printable PDF</h3>
+              <p>
+                Download the compiled PDF version when you want a static copy
+                of the notes.
+              </p>
+              <a href="./blueprint.pdf">Download PDF</a>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel panel-split" aria-labelledby="about-project">
+          <div>
+            <p class="section-tag">Project</p>
+            <h2 id="about-project">What this site contains</h2>
+          </div>
+          <div class="panel-copy">
+            <p>
+              The source notes are maintained in <code>main.tex</code>. GitHub
+              Pages publishes a small site whose landing page lives at the root
+              and whose generated blueprint is served under
+              <code>/blueprint/</code>.
+            </p>
+            <p>
+              The graph view is generated from labels and
+              <code>\uses{...}</code> annotations in the LaTeX source, so the
+              site doubles as both lecture notes and a structural map of the
+              material.
+            </p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

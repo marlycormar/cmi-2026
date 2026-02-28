@@ -11,6 +11,7 @@ on:
       - "lakefile.toml"
       - "lake-manifest.json"
       - "lean-toolchain"
+      - "site/**"
   workflow_dispatch:
 
 concurrency:
@@ -43,11 +44,21 @@ jobs:
         with:
           blueprint: true
 
+      - name: Assemble Pages site
+        run: |
+          mkdir -p site-dist/blueprint
+          cp site/index.html site-dist/index.html
+          cp site/styles.css site-dist/styles.css
+          cp -R blueprint/web/. site-dist/blueprint/
+          if [ -f blueprint/print/print.pdf ]; then
+            cp blueprint/print/print.pdf site-dist/blueprint.pdf
+          fi
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
           name: blueprint-pages
-          path: blueprint/web
+          path: site-dist
 
   deploy:
     needs: build
