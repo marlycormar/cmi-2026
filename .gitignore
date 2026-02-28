@@ -8,6 +8,8 @@
 *.out
 *.pdf
 *.synctex.gz
+README.html
+README_files/
 blueprint/print/
 blueprint/web/
 blueprint/lean_decls
