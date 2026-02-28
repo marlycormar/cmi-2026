@@ -1,6 +1,6 @@
 # CMI 2026
 
-This repo contains the CMI 2026 lecture-note blueprint site. These notes are constantly being updated, so use them at your own risk. Feel free to report any issues/errors by creating an issue.
+This repo contains the [CMI 2026](https://sites.mit.edu/cmi2026/) lecture-note [blueprint](https://github.com/PatrickMassot/leanblueprint) site. These notes are constantly being updated, so use them at your own risk. Feel free to report any issues/errors by creating an issue.
 
 The blueprint sources live under [blueprint/src](./blueprint/src). The content file there imports `main.tex`, so the notes can still be edited in one place.
 
