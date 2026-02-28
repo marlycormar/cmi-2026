@@ -169,7 +169,7 @@ Although the definition of a monoid may seem a little bit abstract \emph{a prior
 
 The most relevant maps between monoids are those that respect the corresponding binary operations, and so we need some terminology to refer to those maps.
 
-\begin{definition}
+\begin{definition} \label{def:monoid-homomorphism}
 	Let $M$ and $N$ be two monoids, and let $e_M$ and $e_N$ denote their respective identity elements. A function $f \colon M \to N$ is called a \emph{monoid homomorphism} if the following holds: 	for all $a,b \in M$,
 	\[
 		f(e_M) = e_N \quad \text{ and } f(a*b) = f(a)*f(b).
@@ -199,7 +199,7 @@ The most relevant maps between monoids are those that respect the corresponding 
 
 For the rest of this section, let $M$ be a monoid with binary operation $*$ and identity element~$e$.
 
-\begin{definition}
+\begin{definition} \label{def:submonoid}
 	A subset $S$ of $M$ is called a \emph{submonoid} of $M$ if $S$ contains~$e$ and is closed under the operation of $M$, which means that $a*b \in S$ for all $a,b \in S$.
 \end{definition}
 
@@ -227,7 +227,8 @@ A submonoid $S$ of $M$ is called a \emph{subgroup} of $M$ if $S$ is a group. If 
 
 One can readily check that the intersection of any arbitrary family of submonoids (resp., subgroups) of $M$ is a submonoid (resp., a subgroup) of $M$ (check this!). It turns out that the image of a monoid (resp., a group) under a monoid homomorphism is again a monoid (resp., a group).
 
-\begin{proposition}
+\begin{proposition} \label{prop:image-of-monoid-homomorphism}
+	\uses{def:monoid-homomorphism,def:submonoid}
 	Let $f \colon M \to N$ be a monoid homomorphism. Then the following statements hold.
 	\begin{enumerate}
 		\item $f(M)$ is a submonoid of $N$.
@@ -256,9 +257,6 @@ Next we introduce a relevant class of submonoids, which are submonoids that are 
 	\end{itemize}
 \end{definition}
 
-%Note that we can think of $M$ as an infinite directed graph $\text{Div}(M)$ whose vertices are the elements of $M$ and, for any $a,b \in M$, there is an edge from $a$ to $b$ if and only if $a \mid_M b$.
-%\medskip
-
 \noindent \textbf{Notation.} When the monoid $M$ is either $(\nn, \cdot)$ or $(\zz \setminus \{0\}, \cdot)$ under the standard multiplication, we write $a \mid b$ instead of $a \mid_M b$ provided that $a$ divides $b$ for some $a,b \in M$.
 \medskip
 
@@ -270,7 +268,8 @@ is called the \emph{associate class} of $a$ in $M$. It turns out that the set $M
 
 We are in a position to introduce divisor-closed submonoids.
 
-\begin{definition}
+\begin{definition} \label{def:divisor-closed-submonoid}
+	\uses{def:divisibility,def:submonoid}
     Let $M$ be a monoid, and let $S$ be a submonoid of $M$. We say that $S$ is a \emph{divisor-closed} submonoid of $M$ if for every pair $(m,s) \in M \times S$, the divisibility relation $m \mid_M s$ implies that $m \in S$. 
 \end{definition}
 
@@ -290,7 +289,8 @@ In other words, a submonoid $S$ of $M$ is divisor-closed if all the elements of 
 
 It turns out that the only divisor closed submonoid of a Puiseux monoid are the trivial submonoid and the whole monoid.
 
-\begin{proposition}
+\begin{proposition} \label{prop:divisor-closed-submonoid-of-puiseux-monoid}
+	\uses{def:divisor-closed-submonoid}
     Let $M$ be a Puiseux monoid. If $S$ is a divisor-closed submonoid, then $S$ is either $\{0\}$ or $M$.
 \end{proposition}
 
@@ -300,7 +300,6 @@ It turns out that the only divisor closed submonoid of a Puiseux monoid are the 
 
 
 \medskip
-%%%%%%%%%%%%%%%%%%%
 \subsection{Cancellative Monoids}
 
 We proceed to introduce cancellative monoids. Let $M$ be a commutative monoid. An element $m \in M$ is called a \emph{cancellative element} if for all $a,b \in M$ the equality $ma = mb$ implies that $a=b$. The monoid $M$ is called a \emph{cancellative monoid} if every element of $M$ is cancellative.
@@ -313,7 +312,8 @@ Every group is obviously an example of a cancellative monoid, and most of the ex
 
 The property of being cancellative is preserved under isomorphisms.
 
-\begin{proposition}
+\begin{proposition} \label{prop:isomorphism-preserves-cancellative}
+	\uses{def:monoid-homomorphism}
 	Let $f \colon M \to M'$ be a monoid isomorphism. If $M$ is cancellative, then $f(M)$ is also cancellative.
 \end{proposition}
 
@@ -341,10 +341,6 @@ Such product induces a monoid structure on the power set of $M$, which is often 
 \end{example}
 
 Every unit of a monoid must be a cancellative element and, because of this, every submonoid of a group must be cancellative. It turns out that every cancellative monoid is isomorphic to a submonoid of a group. This and more will be clear once we introduce the notion of the Grothendieck group of a given monoid.
-%, which is a relevant construction we will see during our first meeting.
-
-
-
 
 
 
@@ -380,7 +376,7 @@ for all $(m_1,s_1), (m_2,s_2) \in M \times S$. It is routine to verify that the 
 
 If $M$ is written additively, then the localization of $M$ at a submonoid $M$ is denoted by either $-S+M$ or $M_S$. It turns out that localizations of monoids satisfy the following universal property.
 
-\begin{proposition} \label{prop:localization of monoid}
+\begin{proposition} \label{prop:localization-of-monoid}
 	\uses{def:localization}
 	For a monoid $M$ and a submonoid $S$ of $M$, let $\iota \colon M \to M_S$ be the monoid homomorphism defined as follows: $\iota(m) = \frac{m}{1}$ for all $m \in M$. Then the following statements hold.
 	\begin{enumerate}
@@ -435,23 +431,17 @@ The localization of a monoid at itself is one of the most relevant examples of l
 
 It turns out that every cancellative monoid is isomorphic to a submonoid of an abelian group. Before proving this, let us introduce the notion a Grothendieck group.
 
-\begin{definition} \label{def:Grothendieck group}
+\begin{definition} \label{def:grothendieck-group}
 	Let $M$ be a commutative monoid. The localization of $M$ at~$M$ is denoted by $\gp(M)$ and called the \emph{Grothendieck group} of~$M$.
 \end{definition}
 
-%Let $\iota \colon M \to \mathcal{G}(M)$ be the localization homomorphism of $M$ with respect to~$M$, and let $G$ be an abelian group containing an isomorphic copy of $M$ as a submonoid. Let $f \colon M \to G$ be an injective monoid homomorphism. As $G$ is a group, Proposition~\ref{prop:localization of monoid} ensures the existence of a group homomorphism $g \colon \gp(M) \to G$ such that $g \circ \iota = f$. Observe that for all $m,s \in M$ with $g\big(\frac{m}s \big) = 1$, 
-%\[
-%	1 = g\Big( \frac{m}s\Big) = g\Big( \frac{m}1  \cdot \Big( \frac{s}1\Big)^{-1} \Big) = g\Big(\frac{m}1 \Big) g\Big( \Big( \frac{s}1\Big)^{-1} \Big) = g( \iota(m)) g(\iota(s)^{-1}) = f(m)f(s)^{-1},
-%\]
-%and so $f(s) = f(m)$. Thus, from the fact that $f$ is injective one obtains that $\ker g$ is trivial, which means that $g$ is also injective. Hence $G$ also contains an isomorphic copy of $\gp(M)$, namely, $g(\gp(M))$.
-
-\begin{proposition} \label{prop:Grothendieck group, unversal property}
-	\uses{prop:localization of monoid,def:Grothendieck group}
+\begin{proposition} \label{prop:grothendieck-group-universal-property}
+	\uses{prop:localization-of-monoid,def:grothendieck-group}
 	Let $M$ be a cancellative monoid with Grothendieck group $\gp(M)$. Then any abelian group $G$ containing an isomorphic copy of~$M$ as a submonoid also contains an isomorphic copy of~$\gp(M)$ as a subgroup.
 \end{proposition}
 
 \begin{proof}
-	Let $\iota \colon M \to \mathcal{G}(M)$ be the localization homomorphism of $M$ with respect to~$M$, and let $G$ be an abelian group containing an isomorphic copy of $M$ as a submonoid. Then there is a monoid homomorphism $f \colon M \to G$ that is injective. As $G$ is a group, Proposition~\ref{prop:localization of monoid} ensures the existence of a group homomorphism $g \colon \gp(M) \to G$ such that $g \circ \iota = f$. Observe that for all $m,s \in M$ with $g\big(\frac{m}s \big) = 1$, 
+	Let $\iota \colon M \to \mathcal{G}(M)$ be the localization homomorphism of $M$ with respect to~$M$, and let $G$ be an abelian group containing an isomorphic copy of $M$ as a submonoid. Then there is a monoid homomorphism $f \colon M \to G$ that is injective. As $G$ is a group, Proposition~\ref{prop:localization-of-monoid} ensures the existence of a group homomorphism $g \colon \gp(M) \to G$ such that $g \circ \iota = f$. Observe that for all $m,s \in M$ with $g\big(\frac{m}s \big) = 1$, 
 	\[
 		1 \! = \! g\Big( \frac{m}s\Big) \! = \! g\Big( \frac{m}1  \Big( \frac{s}1\Big)^{-1} \Big) \! = \! g\Big(\frac{m}1 \Big) g\Big( \Big( \frac{s}1\Big)^{-1} \Big) \! = \! g( \iota(m)) g(\iota(s)^{-1}) \! = \! f(m)f(s)^{-1},
 	\]
@@ -460,7 +450,8 @@ It turns out that every cancellative monoid is isomorphic to a submonoid of an a
 
 Here is a useful result.
 
-\begin{proposition}
+\begin{proposition} \label{prop:subgroup-realizing-grothendieck-group}
+	\uses{def:grothendieck-group,prop:grothendieck-group-universal-property}
 	Let $A$ be an abelian group and let $M$ be a submonoid of $A$. Then there exists a subgroup $G$ of $A$ such that $M \subseteq G \subseteq A$ and $G$ is isomorphic to the Grothendieck group of $M$.
 \end{proposition}
 
@@ -468,8 +459,8 @@ Here is a useful result.
 	Exercise.
 \end{proof}
 
-\begin{theorem} \label{thm:isomorphism extends to gp}
-	\uses{prop:localization of monoid,def:Grothendieck group}
+\begin{theorem} \label{thm:isomorphism-extends-to-grothendieck-group}
+	\uses{prop:localization-of-monoid,def:grothendieck-group}
 	Let $f \colon M \to N$ be an isomorphism of monoids, and let $i_M \colon M \to \gp(M)$ and $i_N \colon N \to \gp(N)$ be the canonical embeddings of $M$ and $N$ into their corresponding Grothendieck groups. 
 %	Then the following statements hold.
 %	\begin{enumerate}
@@ -522,8 +513,8 @@ It is clear that every abelian group is its own Grothendieck group. Let us take 
 
 
 
-\begin{example} \label{ex:Grothendieck group of a NM}
-	\uses{def:Grothendieck group}
+\begin{example} \label{ex:grothendieck-group-of-a-numerical-monoid}
+	\uses{def:grothendieck-group}
 	Let $N$ be a numerical monoid. Then $\mathcal{G}(N) = \{b-c : b,c \in N\} \subseteq \zz$. As $N$ is co-finite, it must contain two consecutive positive integers and so $1 \in \mathcal{G}(N)$. Thus, $-1 \in \mathcal{G}(N)$ and, as a consequence $\zz = \nn \cdot 1 + \nn \cdot (-1) \subseteq \mathcal{G}(N)$. Hence $\gp(N) = \zz$. \hfill $\blacksquare$
 %	\smallskip
 %	Clearly, the inclusion map $\iota \colon N \to \zz$ is an injective monoid homomorphism. Let us argue that we can take the codomain of $\iota$ as the Grothendieck group of $N$. In order to do so, it suffices to check that and let us argue that the inclusion map $\iota \colon N \to \zz$ $\zeta \colon N \subseteq \nn_0 \to \zz$ be the inclusion homomorphism. and let us argue that the Grothendieck group $G := \gp(M)$ of $N$ can be taken to be $\zz$. To do so, take....
@@ -591,13 +582,14 @@ We can define a binary operation on $M$ in the following natural way:
 \end{equation}
 for all $I$-tuples $(b_i)_{i \in I}$ and $(c_i)_{i \in I}$ in $M$. It is routine to show that, under the binary operation we have just defined, which we call the \emph{componentwise operation}, $M$ is a monoid with identity element $(1_{M_i})_{i \in I}$.
 
-\begin{definition}
+\begin{definition} \label{def:product-monoid}
 	For a nonempty familiy of monoids $(M_i)_{i \in I}$, the product set $\prod_{i \in I} M_i$ under componentwise operation is called the \emph{product monoid} of the family $(M_i)_{i \in I}$.
 \end{definition}
 
 Observe that the group of units of $M$ is the product of the groups of units of the componentwise monoid: $M^\times = \prod_{i \in I} M_i^\times$, and this immediately implies both statements of the following proposition.
 
-\begin{proposition}
+\begin{proposition} \label{prop:units-reduced-group-of-product-monoid}
+	\uses{def:product-monoid}
 	For a nonempty set $I$, let $(M_i)_{i \in I}$ be a family of monoids. Then the following statements hold.
 	\begin{enumerate}
 		\item $M^\times = \prod_{i \in I} M_i^\times$.
@@ -612,7 +604,8 @@ Observe that the group of units of $M$ is the product of the groups of units of 
 
 An $I$-tuple $(b_i)_{i \in I} \in \prod_{i \in I} M_i$ is said to have \emph{finite support} if $b_i$ is the identity element of $M_i$ for all but finitely many $i \in I$. We let $\bigoplus_{i \in I} M_i$ denote the subset of the product monoid $\prod_{i \in I} M_i$ consisting of all the $I$-tuples having finite support. Clearly, $\bigoplus_{i \in I} M_i$ is a submonoid of $\prod_{i \in I} M_i$.
 
-\begin{definition}
+\begin{definition} \label{def:internal-product-of-monoids}
+	\uses{def:product-monoid}
 	For a nonempty set $I$, let $(M_i)_{i \in I}$ be a family of monoids. The submonoid $\bigoplus_{i \in I} M_i$ of $\prod_{i \in I} M_i$ is called the \emph{sum} or \emph{internal product} of the family $(M_i)_{i \in I}$. 
 \end{definition}
 
