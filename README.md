@@ -5,7 +5,7 @@
 
 This repo contains the [CMI 2026](https://sites.mit.edu/cmi2026/) lecture-note blueprint site. These notes are constantly being updated, so use them at your own risk. Feel free to report any issues/errors by creating an issue.
 
-The blueprint sources live under [blueprint/src](./blueprint/src). The content file there imports `main.tex`, so the notes can still be edited in one place.
+The blueprint sources live under [blueprint/src](./blueprint/src). The lecture-note source is tracked as [blueprint/src/content.tex](./blueprint/src/content.tex).
 
 ## Local Setup
 
@@ -72,7 +72,7 @@ At that point, the local commands below should work.
 
 ## Updating The Dependency Graph
 
-The dependency graph is generated from annotations in [main.tex](./main.tex).
+The dependency graph is generated from annotations in [blueprint/src/content.tex](./blueprint/src/content.tex).
 For each important theorem-like item, add a stable label and, when appropriate,
 its dependencies:
 
@@ -97,7 +97,7 @@ Useful commands:
 Use labels such as `def:...`, `prop:...`, `lem:...`, and `thm:...`, and prefer
 lowercase hyphenated names without spaces.
 
-After editing `main.tex`, regenerate the HTML blueprint and dependency graph:
+After editing `blueprint/src/content.tex`, regenerate the HTML blueprint and dependency graph:
 
 ```sh
 ./.venv/bin/leanblueprint web

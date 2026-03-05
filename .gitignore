@@ -8,6 +8,8 @@
 *.out
 *.pdf
 *.synctex.gz
+/main.tex
+!/main.pdf
 README.html
 README_files/
 blueprint/print/

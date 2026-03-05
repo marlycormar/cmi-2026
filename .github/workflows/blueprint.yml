@@ -7,10 +7,10 @@ on:
     paths:
       - ".github/workflows/blueprint.yml"
       - "blueprint/**"
-      - "main.tex"
       - "lakefile.toml"
       - "lake-manifest.json"
       - "lean-toolchain"
+      - "main.pdf"
       - "site/**"
   workflow_dispatch:
 
@@ -50,7 +50,9 @@ jobs:
           cp site/index.html site-dist/index.html
           cp site/styles.css site-dist/styles.css
           cp -R blueprint/web/. site-dist/blueprint/
-          if [ -f blueprint/print/print.pdf ]; then
+          if [ -f main.pdf ]; then
+            cp main.pdf site-dist/blueprint.pdf
+          elif [ -f blueprint/print/print.pdf ]; then
             cp blueprint/print/print.pdf site-dist/blueprint.pdf
           fi
 
